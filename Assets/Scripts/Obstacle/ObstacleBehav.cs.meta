@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: ed63c84d61d5f014f865a468f15d9a46
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - psObs: {fileID: 8757113200902693114, guid: a23a4668c0fa0db4fa1e58acac8eb5dd, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
