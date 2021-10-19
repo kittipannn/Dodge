@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameSetting : MonoBehaviour
 {
+    [Header("Scripts")]
     public static GameSetting gamesettingInstance;
     [SerializeField] ScoreScript scoreScript;
     [SerializeField] CoinManager coinManager;
@@ -9,9 +10,12 @@ public class GameSetting : MonoBehaviour
     [SerializeField] playerControl playerControl;
     [SerializeField] UiManager uiManager;
 
+    [Header("GameObject")]
     public GameObject player;
     public GameObject mainCam, shopCam ,menuCam;
     public GameObject borderLeft, borderRight;
+
+    [Header("Variables")]
     public bool playerDead = false;
     public bool startGame = false;
     public bool pauseGame = false;

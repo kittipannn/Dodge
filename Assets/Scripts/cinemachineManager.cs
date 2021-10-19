@@ -5,8 +5,10 @@ using Cinemachine;
 
 public class cinemachineManager : MonoBehaviour
 {
+    [Header("Script")]
     [SerializeField] UiManager uiManager;
-    
+
+    [Header("Objects")]
     public CinemachineBrain cinemachineBrain;
     public GameObject mainCamera, shopCamera , menuCamera;
   

@@ -5,16 +5,21 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
+    [Header("Scripts")]
     ShopManager shopManager;
     [SerializeField] CoinManager coinManager;
     [SerializeField] UiManager uiManager;
     [SerializeField] UIChangeColor uIChangeColor;
-    public int currentCharacterIndex;
+
+    [Header("Object")]
     [SerializeField] GameObject Player;
-    
-    //Button
+
+    [Header("Button")]
     public Button nextBtn , perviousBtn;
     public Button purchasedBtn, selectedBtn;
+
+    [Header("Variable")]
+    public int currentCharacterIndex;
     private void Start()
     {
         shopManager = ShopManager.shopInstance;

@@ -5,23 +5,23 @@ using UnityEngine;
 public class GamePlay : MonoBehaviour
 {
 
-    //Health System 
+    [Header("Health")]
     private float health;
     public float Health { get => health; }
 
     private float maxHealth = 50;
     public float MaxHealth { get => maxHealth; set { maxHealth = value; } }
+    [SerializeField] int multiplyToDecreaseHp = 2;
 
-    //Fever System 
+    [Header("Fever")]
     private float maxfeverGauge = 20;
     public float MaxFeverGauge { get => maxfeverGauge; }
 
     private float feverGauge = 0;
     public float FeverGauge { get => feverGauge; set { feverGauge = value; } }
     bool Onfever = false;
-
-    [SerializeField] int multiplyToDecreaseHp = 2;
     [SerializeField] int multiplyToDecreaseFever = 2;
+
 
     void Start()
     {

@@ -7,23 +7,23 @@ using UnityEngine.SceneManagement;
 public class OnButtonManager : MonoBehaviour
 {
     [SerializeField] UiManager uiManager;
-    
-    //Menu Panel
+
+    [Header("Menu Panel")]
     public Button playBtn;
     public Button muteBtn;
     public Button shopBtn;
-    //result Panel
+    [Header("Result Panel")]
     public Button nothanksBtn;
     public Button menuResultBtn;
-    //Ingame Panel
+    [Header("InGame Panel")]
     public Button pauseBtn;
-    //Pause Panel
+    [Header("Pause Panel")]
     public Button menuPauseBtn;
     public Button resumeBtn;
     bool onPause = false;
-    //Shop Panel
+    [Header("Shop Panel")]
     public Button menuShopBtn;
-    //Ads Panel
+    [Header("Ads Panel")]
     public Button watchAdsBtn;
     public GameObject panelMenu;
     public GameObject uiInGame;

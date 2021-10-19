@@ -6,42 +6,40 @@ using Cinemachine;
 
 public class UiManager : MonoBehaviour
 {
+    [Header("Scripts")]
     [SerializeField] ScoreScript scoreScript;
-
     [SerializeField] GamePlay gamePlay;
     [SerializeField] AdsManager adsManager;
     [SerializeField] CoinManager coinManager;
-
-
+    [Header("Objects")]
     public CinemachineBrain cinemachineBrain;
     public GameObject mainCamera, shopCamera, menuCamera;
     public GameObject player;
-    //panel Menu
+
+    [Header("Menu Panel")]
     public GameObject panelMenu;
     public GameObject purchaseNoAds;
 
-    //UI In Game
+    [Header("InGame Panel")]
     public GameObject panelInGame;
     public Text scoreText;
     public Slider healthSlider;
     public Slider feverSlider;
 
-    //panel Ads
+    [Header("Ads Panel")]
     public GameObject panelAds;
     public Text currentScoreAds;
 
-    //panel Result
+    [Header("Result Panel")]
     public GameObject panelResult;
     public Text resultScore;
     public Text highScoreResult;
 
-    //panel Option
-    //public GameObject panelOption;
-
-    //panel Pause
+    [Header("Pause Panel")]
     public GameObject panelPause;
     public Text scorePause;
-    //panel Shop
+
+    [Header("Shop Panel")]
     public GameObject panelShop;
     public Text coin;
 
