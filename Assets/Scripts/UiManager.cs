@@ -11,6 +11,9 @@ public class UiManager : MonoBehaviour
     [SerializeField] GamePlay gamePlay;
     [SerializeField] AdsManager adsManager;
     [SerializeField] CoinManager coinManager;
+    [SerializeField] UIAnim uIAnim;
+    [SerializeField] GameObject noInputPanel;
+
     [Header("Objects")]
     public CinemachineBrain cinemachineBrain;
     public GameObject mainCamera, shopCamera, menuCamera;
@@ -29,11 +32,13 @@ public class UiManager : MonoBehaviour
     [Header("Ads Panel")]
     public GameObject panelAds;
     public Text currentScoreAds;
+    bool showAdsPanel = false;
 
     [Header("Result Panel")]
     public GameObject panelResult;
     public Text resultScore;
     public Text highScoreResult;
+    bool showResultPanel = false;
 
     [Header("Pause Panel")]
     public GameObject panelPause;
@@ -42,6 +47,11 @@ public class UiManager : MonoBehaviour
     [Header("Shop Panel")]
     public GameObject panelShop;
     public Text coin;
+
+    [Header("Info Panel")]
+    public GameObject infoPanel;
+    public bool OnInfoPanel = false;
+    
 
     void Start()
     {
@@ -57,16 +67,18 @@ public class UiManager : MonoBehaviour
         if (GameSetting.gamesettingInstance.startGame)
         {
             updateUI(); // UI in Game
-            OnPanelPause();
+           
         }
         if (GameSetting.gamesettingInstance.playerDead)
         {
-            if (!GameSetting.gamesettingInstance.watchAds)
+            if (!GameSetting.gamesettingInstance.watchAds && !showAdsPanel)
             {
+                showAdsPanel = true;
                 OnPanelAds();
             }
-            else
+            else if(GameSetting.gamesettingInstance.watchAds && !showResultPanel)
             {
+                showResultPanel = true;
                 OnPanelResult();
             }
         }
@@ -102,10 +114,10 @@ public class UiManager : MonoBehaviour
         }
         if (GameSetting.gamesettingInstance.startGame)
         {
-            if (!GameSetting.gamesettingInstance.playerDead)
+            if (!GameSetting.gamesettingInstance.playerDead && !GameSetting.gamesettingInstance.pauseGame)
             {
-                
                 panelInGame.SetActive(true);
+                
             }
             else
             {
@@ -123,6 +135,8 @@ public class UiManager : MonoBehaviour
         currentScoreAds.text = scoreScript.Score.ToString();
         panelInGame.SetActive(false);
         panelAds.SetActive(true);
+        uIAnim.AdsTween();
+        PreventInput(2.1f);
     }
     public void OnPanelResult() 
     {
@@ -133,14 +147,15 @@ public class UiManager : MonoBehaviour
             GameSetting.gamesettingInstance.countInterstitial = 0;
             PlayerPrefs.SetInt("countInterstitialAd", GameSetting.gamesettingInstance.countInterstitial);
         }
-        panelInGame.SetActive(false);
         highScoreResult.text = scoreScript.HighScore.ToString();
         resultScore.text = scoreScript.Score.ToString();
         panelAds.SetActive(false);
         panelResult.SetActive(true);
+        uIAnim.resultTween(1, 2);
+        PreventInput(2.1f);
     }
-    
-    void OnPanelPause() 
+
+    public void OnPanelPause() 
     {
         if (GameSetting.gamesettingInstance.pauseGame) // bool pause = true
         {
@@ -150,7 +165,7 @@ public class UiManager : MonoBehaviour
             panelPause.SetActive(true);
             Time.timeScale = 0;
         }
-        else // pause = false
+        else
         {
             panelPause.SetActive(false);
             panelInGame.SetActive(true);
@@ -162,7 +177,7 @@ public class UiManager : MonoBehaviour
     {
         if (GameSetting.gamesettingInstance.onShop)
         {
-            panelMenu.SetActive(false);
+
             if (!cinemachineBrain.IsBlending)
             {
                 ICinemachineCamera menuCam = menuCamera.GetComponent<ICinemachineCamera>();
@@ -170,6 +185,7 @@ public class UiManager : MonoBehaviour
                 if (!menuCamLive)
                 {
                     updateCoinInShop();
+                    panelMenu.SetActive(false);
                     panelShop.SetActive(true);
                 }
             }
@@ -177,15 +193,29 @@ public class UiManager : MonoBehaviour
         else
         {
             panelShop.SetActive(false);
-            if (!cinemachineBrain.IsBlending)
-            {
-                ICinemachineCamera shopCam = shopCamera.GetComponent<ICinemachineCamera>();
-                bool shopCamLive = CinemachineCore.Instance.IsLive(shopCam);
-                if (!shopCamLive)
-                {
-                    panelMenu.SetActive(true);
-                }
-            }
+            panelMenu.SetActive(true);
+            //if (!cinemachineBrain.IsBlending)
+            //{
+            //    ICinemachineCamera shopCam = shopCamera.GetComponent<ICinemachineCamera>();
+            //    bool shopCamLive = CinemachineCore.Instance.IsLive(shopCam);
+            //    if (!shopCamLive && !OnInfoPanel)
+            //    {
+            //        panelMenu.SetActive(true);
+            //    }
+            //}
+        }
+    }
+    public void OnPanelInfo() 
+    {
+        if (OnInfoPanel)
+        {
+            panelMenu.SetActive(false);
+            infoPanel.SetActive(true);
+        }
+        else
+        {
+            panelMenu.SetActive(true);
+            infoPanel.SetActive(false);
         }
     }
     public void updateCoinInShop() 
@@ -203,5 +233,17 @@ public class UiManager : MonoBehaviour
         {
             purchaseNoAds.SetActive(false);
         }
+    }
+    void PreventInput(float duration)
+    {
+        noInputPanel.transform.SetAsLastSibling();
+        StartCoroutine(ChangeSceneDelay(noInputPanel, noInputPanel, duration));
+    }
+
+    IEnumerator ChangeSceneDelay(GameObject newCanvas, GameObject oldCanvas, float duration)
+    {
+        newCanvas.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        oldCanvas.SetActive(false);
     }
 }

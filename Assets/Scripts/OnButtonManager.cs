@@ -7,11 +7,13 @@ using UnityEngine.SceneManagement;
 public class OnButtonManager : MonoBehaviour
 {
     [SerializeField] UiManager uiManager;
-
+    [SerializeField] UIAnim uIAnim;
+    [SerializeField] GameObject noInputPanel;
     [Header("Menu Panel")]
     public Button playBtn;
     public Button muteBtn;
     public Button shopBtn;
+    public Button infoBtn;
     [Header("Result Panel")]
     public Button nothanksBtn;
     public Button menuResultBtn;
@@ -27,6 +29,8 @@ public class OnButtonManager : MonoBehaviour
     public Button watchAdsBtn;
     public GameObject panelMenu;
     public GameObject uiInGame;
+    [Header("Info Panel")]
+    public Button menuInfoBtn;
 
     void Start()
     {
@@ -34,6 +38,8 @@ public class OnButtonManager : MonoBehaviour
         playBtn.onClick.AddListener(() => playGame());
         muteBtn.onClick.AddListener(() => SoundManager.SoundInstance.OnButtonSoundControl());
         shopBtn.onClick.AddListener(() => OpenShop());
+        infoBtn.onClick.AddListener(() => OpenInfo());
+        //infoBtn.onClick.AddListener(() => );
         //result Panel
         nothanksBtn.onClick.AddListener(() => OnNothanksBtn());
         menuResultBtn.onClick.AddListener(() => OnMenuBtn());
@@ -46,13 +52,16 @@ public class OnButtonManager : MonoBehaviour
         menuShopBtn.onClick.AddListener(() => CloseShop());
         //Ads Panel
         watchAdsBtn.onClick.AddListener(() => watchAds());
+        //Info Panel
+        menuInfoBtn.onClick.AddListener(() => CloseInfo());
+        PreventInput(3.6f);
     }
 
 
     void playGame()
     {
-        uiManager.OnPlayGame();
-
+        uIAnim.playGameTween();
+        PreventInput(1.6f);
     }
     void watchAds()
     {
@@ -80,17 +89,47 @@ public class OnButtonManager : MonoBehaviour
             GameSetting.gamesettingInstance.pauseGame = false;
             onPause = false;
         }
+        uiManager.OnPanelPause();
     }
     void OpenShop()
     {
+        uIAnim.OpenShopTween(1.8f);
+        PreventInput(1.9f);
         GameSetting.gamesettingInstance.onShop = true;
         GameSetting.gamesettingInstance.setCameraShop();
        //uiManager.OnPanelShop();
     }
     void CloseShop() 
     {
+        uIAnim.CloseShopTween(2.5f);
+        PreventInput(2.6f);
         GameSetting.gamesettingInstance.onShop = false;
         GameSetting.gamesettingInstance.setCameraShop();
         //uiManager.OnPanelShop();
+    }
+    void OpenInfo() 
+    {
+        uiManager.OnInfoPanel = true;
+        uIAnim.OpenInfoTween();
+        uiManager.OnPanelInfo();
+        PreventInput(3.6f);
+    }
+    void CloseInfo()
+    {
+        uiManager.OnInfoPanel = false;
+        uIAnim.CloseInFoTween();
+        PreventInput(2);
+    }
+    void PreventInput(float duration)
+    {
+        noInputPanel.transform.SetAsLastSibling();
+        StartCoroutine(ChangeSceneDelay(noInputPanel, noInputPanel, duration));
+    }
+
+    IEnumerator ChangeSceneDelay(GameObject newCanvas, GameObject oldCanvas, float duration)
+    {
+        newCanvas.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        oldCanvas.SetActive(false);
     }
 }

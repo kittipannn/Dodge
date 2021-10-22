@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour
 
     [Header("Object")]
     [SerializeField] GameObject Player;
+    public Text priceText;
+    public GameObject cantBuyText;
 
     [Header("Button")]
     public Button nextBtn , perviousBtn;
@@ -20,8 +22,10 @@ public class Shop : MonoBehaviour
 
     [Header("Variable")]
     public int currentCharacterIndex;
+    [SerializeField] float timeToshowNoti = 1.5f;
     private void Start()
     {
+        cantBuyText.SetActive(false);
         shopManager = ShopManager.shopInstance;
         setBtn();
         setDefaultSkin();
@@ -69,7 +73,8 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            //shop noti failed
+            purchasedBtn.enabled = false;
+            StartCoroutine(showNoti());
         }
 
     }
@@ -87,7 +92,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            //shop noti fail to select
+            
         }
     }
     void setDefaultSkin() 
@@ -97,6 +102,14 @@ public class Shop : MonoBehaviour
         PlayerPrefs.SetInt(keyname, shopManager.shopdata[0].purchased ? 1 : 0);
         PlayerPrefs.Save();
     }
+    IEnumerator showNoti()
+    {
+        
+        cantBuyText.SetActive(true);
+        yield return new WaitForSeconds(timeToshowNoti);
+        cantBuyText.SetActive(false);
+        purchasedBtn.enabled = true;
+    }
     void updateUIShop()
     {
         if (shopManager.shopdata[currentCharacterIndex].purchased)
@@ -105,6 +118,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
+            priceText.text = shopManager.shopdata[currentCharacterIndex].unlockCost.ToString();
             purchasedBtn.gameObject.SetActive(true);
         }
 

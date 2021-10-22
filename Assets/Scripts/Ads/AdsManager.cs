@@ -30,7 +30,7 @@ public class AdsManager : MonoBehaviour
         //สร้าง banner
         this.RequestBanner();
         this.RequestIntesstitial();
-        showBannerAds();
+        
         gameOverRewardedAds = CreateAndLoadRewardedAds(Video_Ad_ID);
     }
     public void showBannerAds() 
