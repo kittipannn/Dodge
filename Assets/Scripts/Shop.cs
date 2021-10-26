@@ -90,10 +90,7 @@ public class Shop : MonoBehaviour
             playerPs.startColor = shopManager.shopdata[currentCharacterIndex].materialCharacter.color;
             uIChangeColor.enabled = true;
         }
-        else
-        {
-            
-        }
+
     }
     void setDefaultSkin() 
     {

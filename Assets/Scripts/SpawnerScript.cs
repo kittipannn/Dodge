@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpawnerScript : MonoBehaviour
 {
     public GameObject spawnerArea;
-    int numberSpawn = 0;
     string[] tagObstacle = { "Obs1", "Obs2", "Obs3" };
 
 
@@ -37,6 +36,7 @@ public class SpawnerScript : MonoBehaviour
             OnSpawnPotion();
             OnSpawnFever();
         }
+        
     }
 
     void spawnController() 
@@ -103,11 +103,11 @@ public class SpawnerScript : MonoBehaviour
         string tag = tagObstacle[tagIndex];
         if (true)
         {
-            spawnObstacle(randomPos(), "Obs1");
+            spawnObstacle(randomPos(), tag);
         }
         else if (true) // °”·æß
         {
-            spawnObstacle(randomPos(), "Obs3");
+            spawnObstacle(WallObsPos(), "Obs3");
         }
 
     }
@@ -128,7 +128,10 @@ public class SpawnerScript : MonoBehaviour
         startWave = false;
     }
 
-
+    public void setSpawner() // when player watch ads
+    {
+        time = timeSingle;
+    }
     void spawnObstacle(Vector2 position , string tagObs)
     {
         GameObject obstacle = ObjectPooler.ObjectPoolInstance.GetPooledObJect(tagObs);
@@ -152,12 +155,36 @@ public class SpawnerScript : MonoBehaviour
         Vector3 pos;
         Vector2 borderLeftCamera = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
         Vector2 borderRightCamera = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        Debug.Log(borderLeftCamera);
-        Debug.Log(borderRightCamera);
         pos = new Vector3(Random.Range(borderLeftCamera.x + 0.5f, borderRightCamera.x - 0.5f)
             , spawnerArea.transform.position.y, spawnerArea.transform.position.z);
         return pos;
     }
+    Vector2 WallObsPos()
+    {
+        Vector2 pos = new Vector2(0,0);
+        Vector2 borderLeftCamera = Camera.main.ViewportToWorldPoint(new Vector2(0.1f, 1));
+        Vector2 borderRightCamera = Camera.main.ViewportToWorldPoint(new Vector2(0.9f, 1));
+        int indexPos = Random.RandomRange(0, 2);
+        switch (indexPos)
+        {
+            case 0:
+                pos = borderLeftCamera;
+                break;
+            case 1:
+                pos = borderRightCamera;
+                break;
 
+        }
+        return pos;
+       
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Vector2 borderLeftCamera = Camera.main.ViewportToWorldPoint(new Vector2(0.1f, 1));
+        Vector2 borderRightCamera = Camera.main.ViewportToWorldPoint(new Vector2(0.9f, 1));
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(borderLeftCamera, 0.1F);
+        Gizmos.DrawSphere(borderRightCamera, 0.1F);
+    }
 
 }

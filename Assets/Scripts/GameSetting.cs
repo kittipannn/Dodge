@@ -9,6 +9,7 @@ public class GameSetting : MonoBehaviour
     [SerializeField] GamePlay gamePlay;
     [SerializeField] playerControl playerControl;
     [SerializeField] UiManager uiManager;
+    
 
     [Header("GameObject")]
     public GameObject player;
@@ -86,12 +87,13 @@ public class GameSetting : MonoBehaviour
     }
     public void rewardWhenPlayerWatch() 
     {
-        gamePlay.addHP(100);
+        gamePlay.addHP(50);
         watchAds = true;
         player.SetActive(true);
         player.transform.position = GameObject.FindGameObjectWithTag("PosPlayer").GetComponent<Transform>().position;
         playerDead = false;
         uiManager.afterWatchAds();
+        GameObject.FindObjectOfType<SpawnerScript>().setSpawner();
     }
     public void setCameraShop() 
     {
@@ -111,14 +113,14 @@ public class GameSetting : MonoBehaviour
         menuCam.SetActive(false);
         mainCam.SetActive(true);
     }
-    private void OnDrawGizmosSelected()
-    {
-        Vector2 borderLeftCamera = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
-        //borderLeftCamera.x = borderLeftCamera.x + 1f;
-        Vector2 borderRightCamera = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        //borderRightCamera.x -= 1f;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(borderLeftCamera, 0.1F);
-        Gizmos.DrawSphere(borderRightCamera, 0.1F);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Vector2 borderLeftCamera = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
+    //    //borderLeftCamera.x = borderLeftCamera.x + 1f;
+    //    Vector2 borderRightCamera = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+    //    //borderRightCamera.x -= 1f;
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawSphere(borderLeftCamera, 0.1F);
+    //    Gizmos.DrawSphere(borderRightCamera, 0.1F);
+    //}
 }

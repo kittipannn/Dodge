@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1030025421428827294}
   - component: {fileID: 1030025421428827295}
-  - component: {fileID: -978768204649346390}
   - component: {fileID: -767433313946152404}
   - component: {fileID: 5590548157029291277}
+  - component: {fileID: 8534218876783270115}
   m_Layer: 6
   m_Name: Obstacle Wall
   m_TagString: Obs3
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1030025421428827288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.9569, y: -2.2493, z: 0}
-  m_LocalScale: {x: 0.5189389, y: 1.8888733, z: 1}
+  m_LocalScale: {x: 0.5708328, y: 2.3610916, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,21 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-978768204649346390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030025421428827288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed63c84d61d5f014f865a468f15d9a46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageToPlayer: 3
-  fallSpaeed: 5
-  psObs: {fileID: 3002737890542058424, guid: a23a4668c0fa0db4fa1e58acac8eb5dd, type: 3}
 --- !u!50 &-767433313946152404
 Rigidbody2D:
   serializedVersion: 4
@@ -131,7 +116,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -147,3 +132,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8534218876783270115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030025421428827288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c61222e1bd556e4991974530812514f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageToPlayer: 3
+  fallSpaeed: 5
+  psObs: {fileID: 3002737890542058424, guid: a23a4668c0fa0db4fa1e58acac8eb5dd, type: 3}

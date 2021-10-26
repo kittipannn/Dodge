@@ -27,3 +27,4 @@ public class Shopdata
     public int unlockCost;
     public bool purchased;
 }
+

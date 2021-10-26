@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallObs : MonoBehaviour
+public class WallObs : ObstacleBehav
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.gameObject.CompareTag("WallCheck"))
+        {
+            this.gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GamePlay>().onHitObstacle(damageToPlayer);
+            Instantiate(psObs, this.transform.position, Quaternion.identity);
+            CameraShake.Instance.shakeCamera(5f, 0.1f);
+            this.gameObject.SetActive(false);
+        }
     }
 }

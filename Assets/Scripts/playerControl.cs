@@ -7,19 +7,21 @@ public class playerControl : MonoBehaviour
     [SerializeField] float moveSpeed;
     Rigidbody2D rigidbody2D;
     SoundManager sound;
+
     private int soundIndex = 0;
     private void Awake()
     {
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-        
     }
     private void OnEnable()
     {
         sound = SoundManager.SoundInstance;
+
     }
     void Update()
     {
         changeDirectionPlayer();
+
     }
     private void FixedUpdate()
     {
@@ -28,12 +30,10 @@ public class playerControl : MonoBehaviour
     }
     void changeDirectionPlayer() 
     {
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                moveSpeed = moveSpeed * (-1);
-                //soundMove();
-            }
+             moveSpeed = moveSpeed * (-1);
+             //soundMove();
         }
 
     }
@@ -60,4 +60,7 @@ public class playerControl : MonoBehaviour
             moveSpeed = moveSpeed * (-1);
         }
     }
+
+
+
 }

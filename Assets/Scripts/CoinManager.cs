@@ -29,7 +29,6 @@ public class CoinManager : MonoBehaviour
             currentCoin = Mathf.RoundToInt(coin);
             addCoinPoint(currentCoin);
         }
-        Debug.Log(coin);
     }
     public void addCoinPoint(int coinPoint)
     {

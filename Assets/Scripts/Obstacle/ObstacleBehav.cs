@@ -15,7 +15,6 @@ public class ObstacleBehav : MonoBehaviour
     private void FixedUpdate()
     {
         this.transform.position += new Vector3(0, -1, 0) * fallSpaeed * Time.deltaTime;
-        
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -32,6 +31,6 @@ public class ObstacleBehav : MonoBehaviour
             CameraShake.Instance.shakeCamera(5f, 0.1f);
             this.gameObject.SetActive(false);
         }
-
     }
+    
 }
