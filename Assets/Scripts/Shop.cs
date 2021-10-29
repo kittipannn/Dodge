@@ -86,7 +86,7 @@ public class Shop : MonoBehaviour
             PlayerPrefs.Save();
             shopManager.indexCurrentCharacter = currentCharacterIndex;
             Player.GetComponent<Renderer>().material = shopManager.shopdata[currentCharacterIndex].materialCharacter;
-            ParticleSystem playerPs = Player.transform.GetComponentInChildren<ParticleSystem>();
+            ParticleSystem playerPs = Player.transform.GetChild(2).GetComponent<ParticleSystem>();
             playerPs.startColor = shopManager.shopdata[currentCharacterIndex].materialCharacter.color;
             uIChangeColor.enabled = true;
         }

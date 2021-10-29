@@ -18,6 +18,8 @@ TagManager:
   - UiChange
   - Fever
   - WallCheck
+  - PsCheck
+  - Pswall
   layers:
   - Default
   - TransparentFX

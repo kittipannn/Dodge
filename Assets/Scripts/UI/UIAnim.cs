@@ -22,6 +22,8 @@ public class UIAnim : MonoBehaviour
 
     [Header("Ads Panel")]
     [SerializeField] RectTransform adsPanel;
+    [SerializeField] Button noThanks;
+    [SerializeField] Text noThxText;
 
 
     [Header("Result Panel")]
@@ -40,7 +42,7 @@ public class UIAnim : MonoBehaviour
             .OnComplete(adsManager.showBannerAds);
     }
 
-    public void playGameTween() 
+    public void playGameTween()
     {
         // Click PlayBtn
         UiManager uiManager = FindObjectOfType<UiManager>();
@@ -48,7 +50,7 @@ public class UIAnim : MonoBehaviour
         inGameSequence.Append(menuPanel.transform.DOScale(new Vector2(0f, 0f), 1.5f).SetEase(Ease.InOutCubic))
             .OnComplete(uiManager.OnPlayGame);
     }
-    public void OpenShopTween(float duration) 
+    public void OpenShopTween(float duration)
     {
         //Click ShopBtn
         foreach (var image in mainImage)
@@ -66,7 +68,7 @@ public class UIAnim : MonoBehaviour
         }
         purchasedImage.DOFade(0.5f, duration);
     }
-    public void OpenInfoTween() 
+    public void OpenInfoTween()
     {
         Color tempColor = new Color(infoImage[1].color.r, infoImage[1].color.g, infoImage[1].color.b, 0);
         infoImage[1].color = tempColor;
@@ -75,17 +77,17 @@ public class UIAnim : MonoBehaviour
         infoSequence.Append(infoPanel.gameObject.GetComponent<Image>().DOFade(1, 1.5f))
             .OnComplete(() => infoTween(1, 2));
     }
-    public void CloseInFoTween() 
+    public void CloseInFoTween()
     {
         UiManager uiManager = FindObjectOfType<UiManager>();
         Sequence infoSequence = DOTween.Sequence();
         infoSequence.AppendCallback(() => infoTween(0, 1))
             .Append(infoPanel.gameObject.GetComponent<Image>().DOFade(0, 2f))
             .OnComplete(uiManager.OnPanelInfo);
-        
+
     }
 
-    void infoTween(float endValue ,float duration) 
+    void infoTween(float endValue, float duration)
     {
         foreach (var text in infoText)
         {
@@ -97,10 +99,17 @@ public class UIAnim : MonoBehaviour
         }
     }
 
-    public void AdsTween() 
+    public void AdsTween()
     {
         adsPanel.localScale = new Vector2(0, 0);
-        adsPanel.transform.DOScale(new Vector2(1f, 1f), 2f).SetEase(Ease.InOutCubic);
+        noThanks.interactable = false;
+        noThxText.color = new Color(noThxText.color.r, noThxText.color.g, noThxText.color.b, 0);
+        adsPanel.transform.DOScale(new Vector2(1f, 1f), 2f).SetEase(Ease.InOutCubic)
+            .OnComplete(showNothank);
+    }
+    void showNothank() 
+    {
+        noThxText.DOFade(1, 2).OnComplete(() => noThanks.interactable = true);
     }
     public void resultTween(float endValue, float duration) 
     {

@@ -25,6 +25,7 @@ public class GameSetting : MonoBehaviour
     public bool watchAds = false;
     public int countInterstitial = 0;
     bool setBorder = false;
+    bool soundDead = false;
     //whenPlayerDead
     public Vector2 positionSpawnPlayer;
     private void Awake()
@@ -84,6 +85,11 @@ public class GameSetting : MonoBehaviour
     {
         scoreScript.saveHighscore();
         playerDead = true;
+        if (!soundDead)
+        {
+            SoundManager.SoundInstance.Play("GameOver");
+            soundDead = true;
+        }
     }
     public void rewardWhenPlayerWatch() 
     {
@@ -94,6 +100,7 @@ public class GameSetting : MonoBehaviour
         playerDead = false;
         uiManager.afterWatchAds();
         GameObject.FindObjectOfType<SpawnerScript>().setSpawner();
+        soundDead = false;
     }
     public void setCameraShop() 
     {

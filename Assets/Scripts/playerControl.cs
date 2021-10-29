@@ -7,7 +7,7 @@ public class playerControl : MonoBehaviour
     [SerializeField] float moveSpeed;
     Rigidbody2D rigidbody2D;
     SoundManager sound;
-
+    bool hit = false;
     private int soundIndex = 0;
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class playerControl : MonoBehaviour
     }
     void changeDirectionPlayer() 
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !hit)
         {
              moveSpeed = moveSpeed * (-1);
              //soundMove();
@@ -55,9 +55,19 @@ public class playerControl : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Border") && !hit)
+        {
+            hit = true;
+            moveSpeed = moveSpeed * (-1);
+            
+        }
+
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
         if (collision.gameObject.CompareTag("Border"))
         {
-            moveSpeed = moveSpeed * (-1);
+            hit = false;
         }
     }
 

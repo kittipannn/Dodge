@@ -30,6 +30,7 @@ public class ObstacleBehav : MonoBehaviour
             Instantiate(psObs, this.transform.position, Quaternion.identity);
             CameraShake.Instance.shakeCamera(5f, 0.1f);
             this.gameObject.SetActive(false);
+            SoundManager.SoundInstance.Play("Hit");
         }
     }
     
