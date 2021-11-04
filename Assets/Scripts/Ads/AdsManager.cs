@@ -7,10 +7,10 @@ using System;
 public class AdsManager : MonoBehaviour
 {
 #if UNITY_ANDROID
-    string App_ID = "ca-app-pub-3940256099942544/3419835294";
-    string Banner_Ad_ID = "ca-app-pub-3940256099942544/6300978111";
-    string Interstitial_Ad_ID = "ca-app-pub-3940256099942544/1033173712";
-    string Video_Ad_ID = "ca-app-pub-3940256099942544/5224354917";
+    string App_ID = "ca-app-pub-2766444901440139~6253473690";
+    string Banner_Ad_ID = "ca-app-pub-2766444901440139/8857238696";
+    string Interstitial_Ad_ID = "ca-app-pub-2766444901440139/8011060889";
+    string Video_Ad_ID = "ca-app-pub-2766444901440139/8151689351";
 #elif UNITY_IPHONE
         string App_ID = "";
         string Banner_Ad_ID = "";

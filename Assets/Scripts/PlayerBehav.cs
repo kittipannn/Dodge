@@ -23,7 +23,7 @@ public class PlayerBehav : MonoBehaviour
     void Update()
     {
         
-        if (GameSetting.gamesettingInstance.startGame)
+        if (GameSetting.gamesettingInstance.startGame && GameSetting.gamesettingInstance.tutorials)
         {
             if (GameSetting.gamesettingInstance.playerDead)
             {

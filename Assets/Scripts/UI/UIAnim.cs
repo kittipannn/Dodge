@@ -31,7 +31,18 @@ public class UIAnim : MonoBehaviour
     [SerializeField] Image[] resultImage;
     [SerializeField] Text[] resultText;
 
+    [Header("Tutorial Panel 1")]
+    [SerializeField] RectTransform tutotialsPanel_1;
+    [SerializeField] Image[] tutotialsImage_1;
+    [SerializeField] Text[] tutotialsText_1;
 
+    [Header("Tutorial Panel 2")]
+    [SerializeField] RectTransform tutotialsPanel_2;
+    [SerializeField] Image[] tutotialsImage_2;
+    [SerializeField] Text[] tutotialsText_2;
+
+
+    [SerializeField] Button tapBtn;
     void Start()
     {
         // StartGame
@@ -49,6 +60,60 @@ public class UIAnim : MonoBehaviour
         Sequence inGameSequence = DOTween.Sequence();
         inGameSequence.Append(menuPanel.transform.DOScale(new Vector2(0f, 0f), 1.5f).SetEase(Ease.InOutCubic))
             .OnComplete(uiManager.OnPlayGame);
+    }
+    public void page1() 
+    {
+        tapBtn.transform.GetComponentInChildren<Text>().text = "next";
+        tapBtn.gameObject.SetActive(false);
+        Sequence page1Sequence = DOTween.Sequence();
+        page1Sequence.Append(tutotialsPanel_1.DOAnchorPos(new Vector2(0, 0), 1))
+            .AppendCallback(() => page1Tween(1, 2))
+            .OnComplete(() => tapBtn.gameObject.SetActive(true));
+    }
+    void page1Tween(float endValue, float duration)
+    {
+        foreach (var text in tutotialsText_1)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+            text.DOFade(endValue, duration);
+        }
+        foreach (var image in tutotialsImage_1)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
+            image.DOFade(endValue, duration);
+        }
+    }
+
+    public void page2()
+    {
+        tapBtn.transform.GetComponentInChildren<Text>().text = "tap to continue";
+        tapBtn.gameObject.SetActive(false);
+        Sequence page1Sequence = DOTween.Sequence();
+        page1Sequence.Append(tutotialsPanel_1.DOAnchorPos(new Vector2(-1000, 0), 1))
+            .Join(tutotialsPanel_2.DOAnchorPos(new Vector2(0, 0), 2))
+            .AppendCallback(() => page2Tween(1, 2))
+            .OnComplete(() => tapBtn.gameObject.SetActive(true));
+    }
+    void page2Tween(float endValue, float duration)
+    {
+        foreach (var text in tutotialsText_2)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+            text.DOFade(endValue, duration);
+        }
+        foreach (var image in tutotialsImage_2)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
+            image.DOFade(endValue, duration);
+        }
+    }
+
+    public void closeTutorials() 
+    {
+        tapBtn.gameObject.SetActive(false);
+        Sequence page1Sequence = DOTween.Sequence();
+        page1Sequence.Append(tutotialsPanel_2.DOAnchorPos(new Vector2(-1000, 0), 2))
+            .OnComplete(() => GameSetting.gamesettingInstance.setTutorials());
     }
     public void OpenShopTween(float duration)
     {

@@ -27,14 +27,16 @@ public class SpawnerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameSetting.gamesettingInstance.startGame && !GameSetting.gamesettingInstance.playerDead)
+        if (GameSetting.gamesettingInstance.startGame && !GameSetting.gamesettingInstance.playerDead )
         {
-            OnSpawnObstacle();
-            spawnController();
-            time += Time.deltaTime;
-
-            OnSpawnPotion();
-            OnSpawnFever();
+            if (GameSetting.gamesettingInstance.tutorials)
+            {
+                OnSpawnObstacle();
+                spawnController();
+                time += Time.deltaTime;
+                OnSpawnPotion();
+                OnSpawnFever();
+            }
         }
         
     }

@@ -11,8 +11,9 @@ public class cinemachineManager : MonoBehaviour
     [Header("Objects")]
     public CinemachineBrain cinemachineBrain;
     public GameObject mainCamera, shopCamera , menuCamera;
-  
 
+    [Header("Variable")]
+    bool showUi = false;
     // Update is called once per frame
     void Update()
     {
@@ -27,8 +28,9 @@ public class cinemachineManager : MonoBehaviour
             {
                 ICinemachineCamera menuCam = menuCamera.GetComponent<ICinemachineCamera>();
                 bool menuCamLive = CinemachineCore.Instance.IsLive(menuCam);
-                if (!menuCamLive)
+                if (!menuCamLive && !showUi)
                 {
+                    showUi = true;
                     GameSetting.gamesettingInstance.startGame = true;
                     uiManager.OnPlayGame();
                 }

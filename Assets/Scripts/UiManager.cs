@@ -51,7 +51,9 @@ public class UiManager : MonoBehaviour
     [Header("Info Panel")]
     public GameObject infoPanel;
     public bool OnInfoPanel = false;
-    
+
+    [Header("Tutorials Panel")]
+    public GameObject tutorialsPanel;
 
     void Start()
     {
@@ -104,6 +106,24 @@ public class UiManager : MonoBehaviour
         //Ads
        
     }
+    public void tutorialsShow() 
+    {
+        if (GameSetting.gamesettingInstance.startGame)
+        {
+            if (!GameSetting.gamesettingInstance.tutorials)
+            {
+                tutorialsPanel.SetActive(true);
+                uIAnim.page1();
+                //GameSetting.gamesettingInstance.tutorials = true;
+                //PlayerPrefs.SetInt("FirstPlay", GameSetting.gamesettingInstance.tutorials ? 1 : 0);
+                //PlayerPrefs.Save();
+            }
+            else
+            {
+                tutorialsPanel.SetActive(false);
+            }
+        }
+    }
     public void OnPlayGame() 
     {
         if (!GameSetting.gamesettingInstance.OnstartGame)
@@ -116,8 +136,8 @@ public class UiManager : MonoBehaviour
         {
             if (!GameSetting.gamesettingInstance.playerDead && !GameSetting.gamesettingInstance.pauseGame)
             {
+                tutorialsShow();
                 panelInGame.SetActive(true);
-                
             }
             else
             {

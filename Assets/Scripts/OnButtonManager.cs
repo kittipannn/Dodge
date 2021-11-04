@@ -31,7 +31,9 @@ public class OnButtonManager : MonoBehaviour
     public GameObject uiInGame;
     [Header("Info Panel")]
     public Button menuInfoBtn;
-
+    [Header("Tutorials Panel")]
+    public Button tapBtn;
+    int checktap = 1;
     void Start()
     {
         //Menu Panel
@@ -55,6 +57,8 @@ public class OnButtonManager : MonoBehaviour
         //Info Panel
         menuInfoBtn.onClick.AddListener(() => CloseInfo());
         PreventInput(3.6f);
+        //Tutorials Panel
+        tapBtn.onClick.AddListener(() => tapTutorial());
     }
 
 
@@ -119,6 +123,22 @@ public class OnButtonManager : MonoBehaviour
         uiManager.OnInfoPanel = false;
         uIAnim.CloseInFoTween();
         PreventInput(2);
+    }
+    void tapTutorial() 
+    {
+        switch (checktap)
+        {
+            case 1:
+                uIAnim.page2();
+                checktap++;
+                break;
+            case 2:
+                uIAnim.closeTutorials();
+                break;
+            default:  
+                checktap = 0;
+                break;
+        }
     }
     void PreventInput(float duration)
     {

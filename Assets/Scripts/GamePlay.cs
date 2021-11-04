@@ -38,7 +38,7 @@ public class GamePlay : MonoBehaviour
             feverGauge = 0;
         if (health > 50)
             health = 50;
-        if (GameSetting.gamesettingInstance.startGame) // เมื่อเกมเริ่ม
+        if (GameSetting.gamesettingInstance.startGame && GameSetting.gamesettingInstance.tutorials) // เมื่อเกมเริ่ม
         {
             if (health > 0) //ลดเลือดตลอดเวลา
                 decreaseHealth(multiplyToDecreaseHp);

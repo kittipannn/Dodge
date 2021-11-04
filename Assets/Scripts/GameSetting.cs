@@ -26,6 +26,7 @@ public class GameSetting : MonoBehaviour
     public int countInterstitial = 0;
     bool setBorder = false;
     bool soundDead = false;
+    public bool tutorials;
     //whenPlayerDead
     public Vector2 positionSpawnPlayer;
     private void Awake()
@@ -35,6 +36,7 @@ public class GameSetting : MonoBehaviour
         {
             gamesettingInstance = this;
         }
+        tutorials = PlayerPrefs.GetInt("FirstPlay") == 1 ? true : false;
     }
     void Start()
     {
@@ -46,19 +48,18 @@ public class GameSetting : MonoBehaviour
         countInterstitial = PlayerPrefs.GetInt("countInterstitialAd" , 0);
         countInterstitial++;
         PlayerPrefs.SetInt("countInterstitialAd", countInterstitial);
-
-
     }
    
     // Update is called once per frame
     void Update()
     {
-        if (startGame && !playerDead && !pauseGame)
+        if (startGame && !playerDead && !pauseGame && tutorials)
         {
             if (gamePlay.Health > 0)
                 scoreScript.enabled = true;
             else
                 scoreScript.enabled = false;
+
             if (!setBorder)
             {
                 setBorder = true;
@@ -75,7 +76,14 @@ public class GameSetting : MonoBehaviour
         }
 
     }
-    
+    public void setTutorials() 
+    {
+        tutorials = true;
+        uiManager.tutorialsShow();
+        PlayerPrefs.SetInt("FirstPlay", tutorials ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
     void OnsetBorder() 
     {
         borderLeft.transform.position = Camera.main.ViewportToWorldPoint(new Vector2(0, 0.5f));

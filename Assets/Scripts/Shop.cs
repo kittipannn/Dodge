@@ -15,6 +15,7 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject Player;
     public Text priceText;
     public GameObject cantBuyText;
+    public ParticleSystem feverPs, hpPs;
 
     [Header("Button")]
     public Button nextBtn , perviousBtn;
@@ -86,8 +87,7 @@ public class Shop : MonoBehaviour
             PlayerPrefs.Save();
             shopManager.indexCurrentCharacter = currentCharacterIndex;
             Player.GetComponent<Renderer>().material = shopManager.shopdata[currentCharacterIndex].materialCharacter;
-            ParticleSystem playerPs = Player.transform.GetChild(2).GetComponent<ParticleSystem>();
-            playerPs.startColor = shopManager.shopdata[currentCharacterIndex].materialCharacter.color;
+            changeColorPs(shopManager.shopdata[currentCharacterIndex].materialCharacter.color);
             uIChangeColor.enabled = true;
         }
 
@@ -127,6 +127,13 @@ public class Shop : MonoBehaviour
         {
             selectedBtn.gameObject.SetActive(true);
         }
+    }
+    void changeColorPs(Color color) 
+    {
+        ParticleSystem playerPs = Player.transform.GetChild(2).GetComponent<ParticleSystem>();
+        playerPs.startColor = color;
+        feverPs.startColor = color;
+        hpPs.startColor = color;
     }
 }
 
