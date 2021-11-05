@@ -171,6 +171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageToPlayer: 2
-  fallSpaeed: 2
+  fallSpaeed: 4
   psObs: {fileID: 3002737890542058424, guid: a23a4668c0fa0db4fa1e58acac8eb5dd, type: 3}
   speedRot: 2
