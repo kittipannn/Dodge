@@ -15,9 +15,12 @@ public class ScoreScript : MonoBehaviour
         highScore = PlayerPrefs.GetInt("highscore");
     }
 
+    private void OnEnable()
+    {
+        highScore = PlayerPrefs.GetInt("highscore");
+    }
     void Update()
     {
-        checkHighscore();
         countScore();
     }
     void countScore() 
@@ -25,16 +28,10 @@ public class ScoreScript : MonoBehaviour
         currentScore += Time.deltaTime;
         score = Mathf.RoundToInt(currentScore);
     }
-    void checkHighscore() 
-    {
-        if (score > highScore)
-        {
-            highScore = score;
-        }
-    }
+
     public void saveHighscore() 
     {
-        if (score > highScore)
+        if (score >= highScore)
         {
             highScore = score;
             PlayerPrefs.SetInt("highscore", highScore);

@@ -1275,10 +1275,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerArea: {fileID: 2071746001}
-  timeToSpawnSingle: 1
-  timeToSpawnWave: 0.5
-  timeToSpawnPotion: 10
-  timeToSpawnFever: 15
+  timeToSpawnSingle: 1.5
+  timeToSpawnWave: 1
+  timeToSpawnPotion: 15
+  timeToSpawnFever: 10
+  timeSingle: 0
+  timeWave: 10
 --- !u!198 &285885594 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2000688382603682148, guid: c9e59a04c2d637845b0b32a952515038, type: 3}
@@ -1611,7 +1613,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 320024196}
   m_OnClick:
     m_PersistentCalls:

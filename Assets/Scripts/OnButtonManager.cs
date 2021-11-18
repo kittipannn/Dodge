@@ -14,6 +14,7 @@ public class OnButtonManager : MonoBehaviour
     public Button muteBtn;
     public Button shopBtn;
     public Button infoBtn;
+    public Button vibrateBtn;
     [Header("Result Panel")]
     public Button nothanksBtn;
     public Button menuResultBtn;
@@ -34,6 +35,8 @@ public class OnButtonManager : MonoBehaviour
     [Header("Tutorials Panel")]
     public Button tapBtn;
     int checktap = 1;
+
+    
     void Start()
     {
         //Menu Panel
@@ -41,6 +44,7 @@ public class OnButtonManager : MonoBehaviour
         muteBtn.onClick.AddListener(() => SoundManager.SoundInstance.OnButtonSoundControl());
         shopBtn.onClick.AddListener(() => OpenShop());
         infoBtn.onClick.AddListener(() => OpenInfo());
+        vibrateBtn.onClick.AddListener(() => OnVibrate());
         //infoBtn.onClick.AddListener(() => );
         //result Panel
         nothanksBtn.onClick.AddListener(() => OnNothanksBtn());
@@ -59,6 +63,7 @@ public class OnButtonManager : MonoBehaviour
         PreventInput(3.6f);
         //Tutorials Panel
         tapBtn.onClick.AddListener(() => tapTutorial());
+
     }
 
 
@@ -66,11 +71,17 @@ public class OnButtonManager : MonoBehaviour
     {
         uIAnim.playGameTween();
         PreventInput(1.6f);
+        
+    }
+    void OnVibrate()
+    {
+        GameSetting.gamesettingInstance.OnVibrateControl();
     }
     void watchAds()
     {
         //ถ้า player ดู ads หลังจากที่ตาย
-        GameObject.FindObjectOfType<AdsManager>().UserChoseToWatchGameOverRewardAds();
+        //GameObject.FindObjectOfType<AdsManager>().UserChoseToWatchGameOverRewardAds(); // รอได้ Ads ID
+        GameSetting.gamesettingInstance.rewardWhenPlayerWatch();
     }
     void OnNothanksBtn() 
     {

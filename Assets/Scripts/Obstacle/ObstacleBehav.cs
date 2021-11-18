@@ -31,6 +31,10 @@ public class ObstacleBehav : MonoBehaviour
             CameraShake.Instance.shakeCamera(5f, 0.1f);
             this.gameObject.SetActive(false);
             SoundManager.SoundInstance.Play("Hit");
+            if (GameSetting.gamesettingInstance.vibrate)
+            {
+                Handheld.Vibrate();
+            }
         }
     }
     

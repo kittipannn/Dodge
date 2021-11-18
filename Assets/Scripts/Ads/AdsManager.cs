@@ -26,10 +26,10 @@ public class AdsManager : MonoBehaviour
    
     void Start()
     {
-        MobileAds.Initialize(initStatus => { });
+        //MobileAds.Initialize(initStatus => { });
         //สร้าง banner
-        this.RequestBanner();
-        this.RequestIntesstitial();
+        //this.RequestBanner();
+        //this.RequestIntesstitial();
         
         gameOverRewardedAds = CreateAndLoadRewardedAds(Video_Ad_ID);
     }

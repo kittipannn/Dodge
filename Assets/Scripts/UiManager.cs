@@ -55,6 +55,10 @@ public class UiManager : MonoBehaviour
     [Header("Tutorials Panel")]
     public GameObject tutorialsPanel;
 
+    [Header("Vibrate Function")]
+    public GameObject OnvibrateIcon;
+    public GameObject OffVibrateIcon;
+
     void Start()
     {
         healthSlider.maxValue = gamePlay.MaxHealth;
@@ -163,7 +167,7 @@ public class UiManager : MonoBehaviour
         int countInterAds = GameSetting.gamesettingInstance.countInterstitial;
         if (countInterAds >= 3)
         {
-            adsManager.showInterstitialAds();
+            //adsManager.showInterstitialAds();
             GameSetting.gamesettingInstance.countInterstitial = 0;
             PlayerPrefs.SetInt("countInterstitialAd", GameSetting.gamesettingInstance.countInterstitial);
         }
@@ -252,6 +256,19 @@ public class UiManager : MonoBehaviour
         else if (!PlayerPrefs.HasKey("ads"))
         {
             purchaseNoAds.SetActive(false);
+        }
+    }
+    public void UpdateButtonIcon() //ถ้ากดปุ่มจะเปลี่ยน icon
+    {
+        if (!GameSetting.gamesettingInstance.vibrate)
+        {
+            OnvibrateIcon.SetActive(false);
+            OffVibrateIcon.SetActive(true);
+        }
+        else
+        {
+            OffVibrateIcon.SetActive(false);
+            OnvibrateIcon.SetActive(true);
         }
     }
     void PreventInput(float duration)

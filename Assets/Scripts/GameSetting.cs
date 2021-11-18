@@ -27,6 +27,7 @@ public class GameSetting : MonoBehaviour
     bool setBorder = false;
     bool soundDead = false;
     public bool tutorials;
+    public bool vibrate = true;
     //whenPlayerDead
     public Vector2 positionSpawnPlayer;
     private void Awake()
@@ -48,6 +49,17 @@ public class GameSetting : MonoBehaviour
         countInterstitial = PlayerPrefs.GetInt("countInterstitialAd" , 0);
         countInterstitial++;
         PlayerPrefs.SetInt("countInterstitialAd", countInterstitial);
+        //Vibrate
+        if (!PlayerPrefs.HasKey("vibrate"))
+        {
+            PlayerPrefs.SetInt("vibrate", 0);
+            LoadValueSoundControl();
+        }
+        else
+        {
+            LoadValueSoundControl();
+        }
+        uiManager.UpdateButtonIcon();
     }
    
     // Update is called once per frame
@@ -57,8 +69,6 @@ public class GameSetting : MonoBehaviour
         {
             if (gamePlay.Health > 0)
                 scoreScript.enabled = true;
-            else
-                scoreScript.enabled = false;
 
             if (!setBorder)
             {
@@ -92,6 +102,7 @@ public class GameSetting : MonoBehaviour
     void endGame() //กรณี player ตาย จะทำการ save highscore
     {
         scoreScript.saveHighscore();
+        scoreScript.enabled = false;
         playerDead = true;
         if (!soundDead)
         {
@@ -109,6 +120,7 @@ public class GameSetting : MonoBehaviour
         uiManager.afterWatchAds();
         GameObject.FindObjectOfType<SpawnerScript>().setSpawner();
         soundDead = false;
+        uiManager.OnPlayGame();
     }
     public void setCameraShop() 
     {
@@ -128,6 +140,32 @@ public class GameSetting : MonoBehaviour
         menuCam.SetActive(false);
         mainCam.SetActive(true);
     }
+
+    public void OnVibrateControl()
+    {
+        if (vibrate)
+        {
+            vibrate = false;
+            Debug.Log("Not Vibrate");
+        }
+        else
+        {
+            vibrate = true;
+            Handheld.Vibrate();
+            Debug.Log("Vibrate");
+        }
+        SaveValueSoundControl();
+        uiManager.UpdateButtonIcon();
+    }
+    private void LoadValueSoundControl()
+    {
+        vibrate = PlayerPrefs.GetInt("vibrate") == 0;
+    }
+    private void SaveValueSoundControl()
+    {
+        PlayerPrefs.SetInt("vibrate", vibrate ? 1 : 0);
+    }
+
     //private void OnDrawGizmosSelected()
     //{
     //    Vector2 borderLeftCamera = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
@@ -138,4 +176,5 @@ public class GameSetting : MonoBehaviour
     //    Gizmos.DrawSphere(borderLeftCamera, 0.1F);
     //    Gizmos.DrawSphere(borderRightCamera, 0.1F);
     //}
+
 }

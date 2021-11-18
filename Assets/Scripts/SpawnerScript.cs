@@ -19,9 +19,9 @@ public class SpawnerScript : MonoBehaviour
 
 
     float time = 0;
-    float timeSingle = 0;
+    [SerializeField] float timeSingle = 0; //àÃÔèÁµÍ¹äË¹¢Í§single
     bool startSingle = false;
-    float timeWave = 10;
+    [SerializeField] float timeWave = 10;
     bool startWave = false;
     int tagIndex;
     // Update is called once per frame
@@ -33,7 +33,6 @@ public class SpawnerScript : MonoBehaviour
             {
                 OnSpawnObstacle();
                 spawnController();
-                time += Time.deltaTime;
                 OnSpawnPotion();
                 OnSpawnFever();
             }
@@ -43,6 +42,7 @@ public class SpawnerScript : MonoBehaviour
 
     void spawnController() 
     {
+        time += Time.deltaTime;
         if (time >= timeSingle && !startSingle)
         {
             startSingle = true;

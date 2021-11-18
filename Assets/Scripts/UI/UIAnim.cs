@@ -50,7 +50,7 @@ public class UIAnim : MonoBehaviour
         Sequence mainSequence = DOTween.Sequence();
         mainSequence.Append(mainPanel.transform.DOScale(new Vector2(1f, 1f), 1.5f).SetEase(Ease.InOutCubic))
             .Append(menuPanel.gameObject.GetComponent<Image>().DOFade(0, 2))
-            .OnComplete(adsManager.showBannerAds);
+            /*.OnComplete(adsManager.showBannerAds)*/;
     }
 
     public void playGameTween()
