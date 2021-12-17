@@ -41,6 +41,8 @@ public class UIAnim : MonoBehaviour
     [SerializeField] Image[] tutotialsImage_2;
     [SerializeField] Text[] tutotialsText_2;
 
+    [Header("Warning Panel")]
+    [SerializeField] RectTransform warningPanel;
 
     [SerializeField] Button tapBtn;
     void Start()
@@ -50,7 +52,7 @@ public class UIAnim : MonoBehaviour
         Sequence mainSequence = DOTween.Sequence();
         mainSequence.Append(mainPanel.transform.DOScale(new Vector2(1f, 1f), 1.5f).SetEase(Ease.InOutCubic))
             .Append(menuPanel.gameObject.GetComponent<Image>().DOFade(0, 2))
-            /*.OnComplete(adsManager.showBannerAds)*/;
+            .OnComplete(adsManager.showBannerAds);
     }
 
     public void playGameTween()
@@ -188,6 +190,21 @@ public class UIAnim : MonoBehaviour
             image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
             image.DOFade(endValue, duration);
         }
+    }
+    public void warningTween() 
+    {
+        if (!GameSetting.gamesettingInstance.playerDead)
+            SoundManager.SoundInstance.Play("WarningSound");
+
+        warningPanel.gameObject.SetActive(true);
+        warningPanel.transform.localScale = new Vector2(0, 0);
+        Sequence warningSequence = DOTween.Sequence();
+        warningSequence.Append(warningPanel.transform.DOScale(new Vector2(1.2f, 1.2f), 1f).SetEase(Ease.InOutCubic))
+            .Append(warningPanel.transform.DOScale(new Vector2(1, 1), 0.5f).SetEase(Ease.InOutCubic))
+            .Append(warningPanel.transform.DOScale(new Vector2(1.2f, 1.2f), 0.5f).SetEase(Ease.InOutCubic))
+            .Append(warningPanel.transform.DOScale(new Vector2(0, 0), 0.25f).SetEase(Ease.InOutCubic))
+            .OnComplete(() => warningPanel.gameObject.SetActive(false));
+
     }
  
 

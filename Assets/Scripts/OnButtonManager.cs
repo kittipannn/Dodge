@@ -80,7 +80,7 @@ public class OnButtonManager : MonoBehaviour
     void watchAds()
     {
         //ถ้า player ดู ads หลังจากที่ตาย
-        //GameObject.FindObjectOfType<AdsManager>().UserChoseToWatchGameOverRewardAds(); // รอได้ Ads ID
+        GameObject.FindObjectOfType<AdsManager>().UserChoseToWatchGameOverRewardAds(); // รอได้ Ads ID
         GameSetting.gamesettingInstance.rewardWhenPlayerWatch();
     }
     void OnNothanksBtn() 
@@ -112,7 +112,6 @@ public class OnButtonManager : MonoBehaviour
         PreventInput(1.9f);
         GameSetting.gamesettingInstance.onShop = true;
         GameSetting.gamesettingInstance.setCameraShop();
-       //uiManager.OnPanelShop();
     }
     void CloseShop() 
     {
@@ -120,7 +119,7 @@ public class OnButtonManager : MonoBehaviour
         PreventInput(2.6f);
         GameSetting.gamesettingInstance.onShop = false;
         GameSetting.gamesettingInstance.setCameraShop();
-        //uiManager.OnPanelShop();
+        GameObject.FindObjectOfType<Shop>().backToMenu();
     }
     void OpenInfo() 
     {

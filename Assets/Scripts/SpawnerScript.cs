@@ -46,14 +46,14 @@ public class SpawnerScript : MonoBehaviour
         if (time >= timeSingle && !startSingle)
         {
             startSingle = true;
-            timeSingle += 15;
+            timeSingle += 17;
             StartCoroutine("onSpawnSingle");
         }
         if (time >= timeWave && !startWave)
         {
             startWave = true;
             tagIndex = Random.Range(0, tagObstacle.Length);
-            timeWave += 15;
+            timeWave += 17;
             StartCoroutine("onWaveSpawn");
         }
     }
@@ -103,14 +103,7 @@ public class SpawnerScript : MonoBehaviour
     {
         int tagIndex = Random.Range(0, tagObstacle.Length);
         string tag = tagObstacle[tagIndex];
-        if (true)
-        {
-            spawnObstacle(randomPos(), tag);
-        }
-        else if (true) // °”·æß
-        {
-            spawnObstacle(WallObsPos(), "Obs3");
-        }
+        spawnObstacle(randomPos(), tag);
 
     }
     void spawnWave(int tagindex) 
@@ -122,6 +115,7 @@ public class SpawnerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         startSingle = false;
+        GameObject.FindObjectOfType<UIAnim>().warningTween();
 
     }
     IEnumerator onWaveSpawn()
@@ -133,6 +127,11 @@ public class SpawnerScript : MonoBehaviour
     public void setSpawner() // when player watch ads
     {
         time = timeSingle;
+        Debug.Log("Set Spawner");
+        if (timeWave < time)
+            timeWave += 17;
+        StopCoroutine(onSpawnSingle());
+        StopCoroutine(onWaveSpawn());
     }
     void spawnObstacle(Vector2 position , string tagObs)
     {

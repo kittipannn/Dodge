@@ -24,14 +24,17 @@ public class Shop : MonoBehaviour
     [Header("Variable")]
     public int currentCharacterIndex;
     [SerializeField] float timeToshowNoti = 1.5f;
+    Material currentMaterial;
     private void Start()
     {
+        purchasedBtn.gameObject.SetActive(false);
         cantBuyText.SetActive(false);
         shopManager = ShopManager.shopInstance;
         setBtn();
         setDefaultSkin();
         currentCharacterIndex = PlayerPrefs.GetInt("CharacterSelected");
         Player.GetComponent<Renderer>().material = shopManager.shopdata[currentCharacterIndex].materialCharacter;
+        currentMaterial = shopManager.shopdata[currentCharacterIndex].materialCharacter;
     }
     private void Update()
     {
@@ -43,6 +46,14 @@ public class Shop : MonoBehaviour
         perviousBtn.onClick.AddListener(() => OnPerviousBtn());
         purchasedBtn.onClick.AddListener(() => purchaseSkin());
         selectedBtn.onClick.AddListener(() => selectedSkin());
+    }
+    public void backToMenu() 
+    {
+        if (Player.GetComponent<Renderer>().material != currentMaterial)
+        {
+            Player.GetComponent<Renderer>().material = currentMaterial;
+        }
+        currentCharacterIndex = 0;
     }
     
     void OnNextBtn() 
@@ -87,6 +98,7 @@ public class Shop : MonoBehaviour
             PlayerPrefs.Save();
             shopManager.indexCurrentCharacter = currentCharacterIndex;
             Player.GetComponent<Renderer>().material = shopManager.shopdata[currentCharacterIndex].materialCharacter;
+            currentMaterial = shopManager.shopdata[currentCharacterIndex].materialCharacter;
             changeColorPs(shopManager.shopdata[currentCharacterIndex].materialCharacter.color);
             uIChangeColor.enabled = true;
         }

@@ -118,9 +118,7 @@ public class UiManager : MonoBehaviour
             {
                 tutorialsPanel.SetActive(true);
                 uIAnim.page1();
-                //GameSetting.gamesettingInstance.tutorials = true;
-                //PlayerPrefs.SetInt("FirstPlay", GameSetting.gamesettingInstance.tutorials ? 1 : 0);
-                //PlayerPrefs.Save();
+
             }
             else
             {
@@ -167,7 +165,7 @@ public class UiManager : MonoBehaviour
         int countInterAds = GameSetting.gamesettingInstance.countInterstitial;
         if (countInterAds >= 3)
         {
-            //adsManager.showInterstitialAds();
+            adsManager.showInterstitialAds();
             GameSetting.gamesettingInstance.countInterstitial = 0;
             PlayerPrefs.SetInt("countInterstitialAd", GameSetting.gamesettingInstance.countInterstitial);
         }
@@ -218,15 +216,7 @@ public class UiManager : MonoBehaviour
         {
             panelShop.SetActive(false);
             panelMenu.SetActive(true);
-            //if (!cinemachineBrain.IsBlending)
-            //{
-            //    ICinemachineCamera shopCam = shopCamera.GetComponent<ICinemachineCamera>();
-            //    bool shopCamLive = CinemachineCore.Instance.IsLive(shopCam);
-            //    if (!shopCamLive && !OnInfoPanel)
-            //    {
-            //        panelMenu.SetActive(true);
-            //    }
-            //}
+
         }
     }
     public void OnPanelInfo() 

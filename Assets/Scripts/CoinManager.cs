@@ -13,7 +13,7 @@ public class CoinManager : MonoBehaviour
     //coin ต่อรอบ
     private int currentCoin;
     public int CurrentCoin { get => currentCoin; } // โชว์หน้าสรุปผล
-    private float ratioOfCoin = 0.5f;
+    [SerializeField] private float ratioOfCoin = 0.5f;
     bool checkTotalCoin = false;
     void Start()
     {

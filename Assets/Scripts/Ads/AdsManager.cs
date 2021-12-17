@@ -8,9 +8,9 @@ public class AdsManager : MonoBehaviour
 {
 #if UNITY_ANDROID
     string App_ID = "ca-app-pub-2766444901440139~6253473690";
-    string Banner_Ad_ID = "ca-app-pub-2766444901440139/8857238696";
-    string Interstitial_Ad_ID = "ca-app-pub-2766444901440139/8011060889";
-    string Video_Ad_ID = "ca-app-pub-2766444901440139/8151689351";
+    string Banner_Ad_ID = "ca-app-pub-7318907042461228/5006638927";
+    string Interstitial_Ad_ID = "ca-app-pub-7318907042461228/7441230570";
+    string Video_Ad_ID = "ca-app-pub-7318907042461228/6308629229";
 #elif UNITY_IPHONE
         string App_ID = "";
         string Banner_Ad_ID = "";
@@ -26,11 +26,11 @@ public class AdsManager : MonoBehaviour
    
     void Start()
     {
-        //MobileAds.Initialize(initStatus => { });
+        MobileAds.Initialize(initStatus => { });
         //สร้าง banner
-        //this.RequestBanner();
-        //this.RequestIntesstitial();
-        
+        this.RequestBanner();
+        this.RequestIntesstitial();
+
         gameOverRewardedAds = CreateAndLoadRewardedAds(Video_Ad_ID);
     }
     public void showBannerAds() 
@@ -120,7 +120,8 @@ public class AdsManager : MonoBehaviour
 
     public void HandleRewardedAdClosed(object sender, EventArgs args)
     {
-        Debug.Log("RewardedAdClosed");
+        GameSetting.gamesettingInstance.watchAds = true;
+
     }
 
     public void HandleUserEarnedReward(object sender, Reward args)
